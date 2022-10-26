@@ -1,0 +1,38 @@
+version: "3.1"
+
+services:
+
+  destination_host:
+    container_name: destination_host
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: myDatabaseAdminUser
+      POSTGRES_PASSWORD: aGivenAdminPassword
+      POSTGRES_DB: destination_db
+    ports:
+      - '5432:5432'
+
+  source_host:
+    container_name: source_host
+    image: mysql:5.7
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: source_db
+      MYSQL_USER: myDatabaseAdminUser2
+      MYSQL_PASSWORD: aGivenAdminPassword2
+      MYSQL_ROOT_PASSWORD: theRootPassword
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./sourceDbInitScripts:/docker-entrypoint-initdb.d
+
+  migration:
+    container_name: migration
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - './scripts:/scripts'
