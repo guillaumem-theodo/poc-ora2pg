@@ -3,7 +3,6 @@ version: "3.1"
 services:
 
   destination_host:
-    platform: linux/arm64/v8
     container_name: destination_host
     image: postgres
     restart: always
