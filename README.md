@@ -21,8 +21,12 @@ If you have issues: ``docker-compose stop`` then ``docker system prune -f -a --v
 3. Scripts in root directory
    1. first, use ``./createMigrationProject.sh`` (from the localhost) to launch ora2pg project creation from within the migration server.
    2. second, use ``./exportSchema.sh`` (from the localhost) to export mySQL schema and transform it to PG schema. Results will arrive in ``scripts/projects/schema`` directory on the migration server
-   3. then, use the interactive ``./importAll.sh`` (from the localhost)  to apply migration
+   3. then, use the interactive ``./importDataInPg.sh`` (from the localhost) to apply migration. You also can use `import_all.sh` (from `migration` container) to have more options 
       1. answer NO to create database and schema
       2. answer YES to create TABLEs
       3. answer YES to load DATA
       4. answer YES to apply INDEXES, then CONSTRAINTS, then FK/PK
+
+4. To check the result, use ``docker-compose exec destination_host /bin/bash`` to connect to the PGSQL container and then ``psql -d destination_db -U myDatabaseAdminUser`` to connect to the database. You can then use ``\dt`` to list tables and ``select * from <table_name>`` to check data.
+
+5. You can customize the migration configuration by editing ``./scripts/projects/mig/ora2pg.conf`` file. 

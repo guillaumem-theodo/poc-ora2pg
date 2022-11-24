@@ -14,6 +14,7 @@ services:
       - '5432:5432'
 
   source_host:
+    platform: linux/amd64
     container_name: source_host
     image: mysql:5.7
     restart: always
