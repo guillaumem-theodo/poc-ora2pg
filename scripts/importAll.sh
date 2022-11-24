@@ -10,6 +10,9 @@
 ## -x import indexes and constraints after data
 ##
 
+echo "Starting migration tool."
+echo "This tool will ask you for the database password several times. This is not a fail."
+
 (cd ./projects/mig || exit; ./import_all.sh -d destination_db -o myDatabaseAdminUser -n public -h destination_host -U myDatabaseAdminUser -x
 )
 
