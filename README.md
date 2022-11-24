@@ -26,3 +26,7 @@ If you have issues: ``docker-compose stop`` then ``docker system prune -f -a --v
       2. answer YES to create TABLEs
       3. answer YES to load DATA
       4. answer YES to apply INDEXES, then CONSTRAINTS, then FK/PK
+
+4. To check the result, use ``docker-compose exec destination_host /bin/bash`` to connect to the PGSQL container and then ``psql -d destination_db -U myDatabaseAdminUser`` to connect to the database. You can then use ``\dt`` to list tables and ``select * from <table_name>`` to check data.
+
+5. You can customize the migration configuration by editing ``./scripts/projects/mig/ora2pg.conf`` file. 
